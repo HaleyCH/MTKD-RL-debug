@@ -228,7 +228,11 @@ def train(train_loader, model, criterion_list, optimizer, epoch, device,
                 teacher_info = []
                 teacher_info.append(t_feature)
                 teacher_info.append(t_logits)
-                teacher_info.append(F.cross_entropy(t_logits, targets, reduction='none').unsqueeze(-1)) # 128*1
+                t_prob = F.softmax(t_logits)
+                if args.code_fix:
+                    teacher_info.append(F.cross_entropy(t_prob, targets, reduction='none').unsqueeze(-1)) #NOTE fixed code
+                else:
+                    teacher_info.append(F.cross_entropy(t_logits, targets, reduction='none').unsqueeze(-1)) #NOTE origin
                 teacher_info = torch.cat(teacher_info, dim=1) # teacher logtis , teacher feature , CE_loss , student_teacher_gap
                 all_teacher_info.append(teacher_info)
 

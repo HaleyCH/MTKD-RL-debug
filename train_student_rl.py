@@ -96,6 +96,7 @@ parser.add_argument('--checkpoint-dir', default='./checkpoint', type=str, help='
 parser.add_argument('--teacher-name-list', default=['resnet32x4', 'wrn_28_4'], type=str, nargs='+', help='teacher models')
 parser.add_argument('--dataset', type=str, default='cifar100', choices=['cifar100', 'imagenet', 'tinyimagenet', 'dogs', 'cub_200_2011', 'mit67'], help='dataset')
 parser.add_argument('--trial', type=str, default='1', help='trial id')
+parser.add_argument('--code-fix', type=bool, default=False, help='Check whether it is a bug')
 
 
 def get_tensorboard_path(path):
